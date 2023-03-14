@@ -1,27 +1,96 @@
-{
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Flask",
-            "type": "python",
-            "request": "launch",
-            "module": "flask",
-            "env": {
-                "FLASK_APP": "app.py",
-                "FLASK_ENV": "development",
-                "FLASK_DEBUG": "0"
-            },
-            "args": [
-                "run",
-                "--host","0.0.0.0",
-                "--port","9000",
-                "--no-debugger",
-                "--no-reload"
-            ],
-            "jinja": true
-        }
-    ]
-}
+import random
+import string
+import os
+
+
+def encoding():
+    msg = input("Enter your Message to encode: ")
+
+    c = msg.split()
+    for i in range(len(c)):
+
+        di = len(c[i])  # this will give the length of each word in the list
+        e = c[i]
+
+        if di < 3:
+            reversed_2 = e[::-1]
+            print(reversed_2, end=" ")
+        elif di >= 3:
+            new_string = ""
+            for j in range(1, len(e)):
+                new_string += e[j]
+            new_string += e[0]
+
+            max_length = 3
+            str1 = ""
+            for k in range(random.randint(3, max_length)):
+                str1 += random.choice(string.ascii_letters)
+
+            str2 = ""
+            for l1 in range(random.randint(3, max_length)):
+                str2 += random.choice(string.ascii_letters)
+
+            print(str2 + new_string + str1, end=" ")
+
+
+# for decoding
+def decoding():
+    print("Enter the text to decode: ")
+    decode_string = input()
+    string_in_list = decode_string.split()
+    for i in range(len(string_in_list)):
+        length_of_word = len(string_in_list[i])
+        e = string_in_list[i]
+        if length_of_word < 3:
+            reversed_1 = e[::-1]
+            print(reversed_1, end=" ")
+        elif length_of_word >= 3:
+            length_of_e = len(e)
+            new_string = ""
+            for j in range(3, length_of_e):
+                new_string += e[j]
+            removing_last_three_characters = new_string[0:(len(new_string) - 3)]
+            d = ""
+            d1 = d + removing_last_three_characters[-1]
+            f = ""
+            f1 = f + removing_last_three_characters[:(len(removing_last_three_characters) - 1)]
+            final_string = d1 + f1
+            print(final_string, end=" ")
+
+
+def interface():
+    print("                       WELCOME TO THE TOP SECRET LANGUAGE MAKER                        ")
+    print("""
+
+    1. Press 1 for encode a message
+    2. Press 2 for decode a message
+    3. Press 3 for exit.
+    """)
+    a = input("What do you want to do: ")
+    while True:
+
+        if a.isdigit():
+            a = int(a)
+            if a == 1:
+                encoding()
+                print()
+                interface()
+
+            elif a == 2:
+                decoding()
+                print()
+                interface()
+
+            elif a == 3:
+                print("Take care see you soon")
+                os.system(exit())
+
+            else:
+                print("Please read the instructions carefully")
+                interface()
+        else:
+            print("Please read the instructions carefully")
+            interface()
+
+
+interface()
